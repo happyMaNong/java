@@ -2,7 +2,7 @@ package com.df.cloud.controller;
 
 public class Testgit {
 
- 
+
 
   private String nameString ;
 //asdadada a
@@ -10,18 +10,18 @@ public class Testgit {
   *id
   */
   private int id;
-  
+
   private String name ;
   private String name11 ;
-  
+
   //12134454
   //121
   //bobo测试
   //abc
 
-  
 
-   //波波测试01 
+
+   //波波测试01
 
    //波波测试01
 
@@ -29,8 +29,9 @@ public class Testgit {
 //bobo
 
   //tlp
-  
+
 
   //4545
 
+//chongtu
 }
