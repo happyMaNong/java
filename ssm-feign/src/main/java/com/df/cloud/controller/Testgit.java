@@ -12,4 +12,5 @@ public class Testgit {
   private int id;
   
   private String name ;
+  private String name11 ;
 }
