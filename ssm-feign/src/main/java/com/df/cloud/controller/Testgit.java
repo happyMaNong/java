@@ -5,4 +5,6 @@ public class Testgit {
   *id
   */
   private int id;
+  
+  private String name ;
 }
