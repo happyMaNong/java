@@ -35,7 +35,6 @@ public class TLPController {
 	public List<String> findRole() {
 		return tlpService.findRole();
 	}
-	@ApiOperation(value="新增篮球运动员信息" ,notes="新增篮球运动员信息")
 	@PostMapping("/add")
 	public boolean addPlyer(TianlingpengDTO dto) {
 		return	tlpService.addPlayer(dto);
