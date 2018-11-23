@@ -5,7 +5,7 @@ public class Testgit {
  
 
   private String nameString ;
-
+//asdadada a
   /**
   *id
   */
@@ -13,4 +13,6 @@ public class Testgit {
   
   private String name ;
   private String name11 ;
+  
+  private String name222;
 }
