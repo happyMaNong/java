@@ -13,4 +13,9 @@ public class HelloController {
     public String index() {
         return "HelloWorld!";
     }
+
+    @RequestMapping("find")
+    public String find() {
+        return "tlp:田凌鹏";
+    }
 }
