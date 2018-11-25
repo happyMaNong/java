@@ -14,7 +14,7 @@ public class HelloController {
         return "HelloWorld!";
     }
 
-    @RequestMapping("find")
+    @RequestMapping("find1")
     public String find() {
         return "tlp:田凌鹏";
     }
