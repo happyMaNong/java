@@ -20,9 +20,13 @@ public class Testgit {
 
   private int c;
 
+ private int bo1;
 
 private int b;
 
 private int pp;
+
+
+private int b2;
 
 }
