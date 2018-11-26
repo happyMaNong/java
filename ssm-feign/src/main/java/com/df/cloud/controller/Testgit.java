@@ -8,6 +8,4 @@ public class Testgit {
   private String tlp;
 
 
-private int b4;
-
 }
