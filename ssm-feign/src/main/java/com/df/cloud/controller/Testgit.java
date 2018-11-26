@@ -29,4 +29,6 @@ private int pp;
 
 private int b2;
 
+private int b3;
+
 }
