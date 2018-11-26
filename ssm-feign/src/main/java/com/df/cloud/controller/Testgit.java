@@ -5,15 +5,7 @@ public class Testgit {
 
   private String bobo;
 
+  private String tlp;
 
-  private int id;
-
-  private String name ;
-
-
-  private int age;
-
-
-private int b3;
 
 }
