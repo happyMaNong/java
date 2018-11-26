@@ -16,4 +16,6 @@ public class Testgit {
 
 private int b3;
 
+private int b4;
+
 }
