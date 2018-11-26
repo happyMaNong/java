@@ -2,6 +2,9 @@ package com.df.cloud.controller;
 
 public class Testgit {
 
+
+  private String bobo;
+
   private String nameString ;
 
   private int id;
@@ -19,5 +22,7 @@ public class Testgit {
 
 
 private int b;
+
+private int pp;
 
 }
