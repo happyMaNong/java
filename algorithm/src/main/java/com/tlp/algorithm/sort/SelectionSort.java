@@ -1,7 +1,7 @@
 package com.tlp.algorithm.sort;
 
 /**
- * 选择排序，每次循环找出最小的数，交换位置
+ * 选择排序，每次循环找出最小的数，放置于该次循环的首位
  * @Description：
  * @author：tianlingpeng
  * @crateDate：2019/3/24 20:14
