@@ -6,7 +6,7 @@ import com.tlp.ws.entity.Blog;
 import com.tlp.ws.entity.Student;
 import org.elasticsearch.index.query.MatchAllQueryBuilder;
 import org.elasticsearch.index.query.Operator;
-import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.sort.SortBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
@@ -15,16 +15,14 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
-import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
-import org.springframework.data.elasticsearch.core.query.UpdateQuery;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -155,6 +153,7 @@ public class EsFirstApplicationTests {
         //exist
         SearchQuery searchQuery5 = new NativeSearchQueryBuilder().withQuery(existsQuery("address")).build();
 
+        //query_string 全文搜索，默认搜索全部字段，可以指定字段
         SearchQuery searchQuery6 = new NativeSearchQueryBuilder().withQuery(queryStringQuery("美国")).build();
 
         //bool
@@ -166,16 +165,26 @@ public class EsFirstApplicationTests {
         SearchQuery searchQuery9 = new NativeSearchQueryBuilder()
                 .withQuery(boolQuery().filter(boolQuery().should(matchQuery("address", "美国")).should(matchQuery("name", "姚明")))).build();
 
-        //分页
+        //分页,坑爹啊为啥pag 要从0开始
+        SearchQuery searchQuery10 = new NativeSearchQueryBuilder().withQuery(matchQuery("address", "美国")).withPageable(new PageRequest(0, 4)).build();
 
-        NativeSearchQueryBuilder searchQuery10 = new NativeSearchQueryBuilder().withQuery(new MatchAllQueryBuilder());
-        Pageable pageable = new PageRequest(1, 10);
-        searchQuery10.withPageable(pageable);
-        //query_string 全文搜索，默认搜索全部字段，可以指定字段
-        // List<Student> students = elasticsearchTemplate.queryForList(searchQuery10, Student.class);
-        AggregatedPage<Student> students = elasticsearchTemplate.queryForPage(searchQuery10.build(), Student.class);
+        SearchQuery searchQuery11 = new NativeSearchQueryBuilder().withQuery(matchQuery("address", "美国")).build();
+        List<Sort.Order> list = new ArrayList<>();
+        //排序
+        list.add(Sort.Order.asc("age"));
+        list.add(Sort.Order.asc("id"));
+        Sort sort = Sort.by(list);
+        searchQuery11.addSort(sort);
 
-        students.getContent().forEach(student -> {
+        //高亮搜索
+        SearchQuery searchQuery12 = new NativeSearchQueryBuilder().withQuery(matchQuery("address", "美国"))
+                .withHighlightFields(new HighlightBuilder.Field("address")).build();
+        // AggregatedPage<Student> students = elasticsearchTemplate.queryForPage(searchQuery10, Student.class);
+        // students.getContent().forEach(student -> {
+        // System.out.println(student.toString());
+        //   });
+        List<Student> students = elasticsearchTemplate.queryForList(searchQuery12, Student.class);
+        students.forEach(student -> {
             System.out.println(student.toString());
         });
     }
