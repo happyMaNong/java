@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class RabbitmqApplicationTests {
-
+    //exchange queue message 默认都是持久化的
     @Test
     public void contextLoads() {
     }

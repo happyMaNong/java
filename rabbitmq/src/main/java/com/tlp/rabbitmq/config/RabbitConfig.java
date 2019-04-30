@@ -17,6 +17,9 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class RabbitConfig {
+    //mq的ack  主要是确认消息被消费者消费完成后通知服务器将队列里面的消息清除
+    //RabbitMq 默认是no_ack=true模式，只有消息发送到消费者，就删除内存中的消息,至于异常不异常的，我不管了。通知Ack机制就是这么来的
+
     //Direct 类型的Exchage，根据routingkey绑定队列
     @Bean
     public Queue queue() {
@@ -47,7 +50,7 @@ public class RabbitConfig {
     //Topic类型的Exchage，根据通配符绑定队列
     @Bean
     TopicExchange exchange() {
-        return new TopicExchange("exchange");
+        return new TopicExchange("exchange",true,false);
     }
 
     // Binding的作用就是把exchange和queue按照路由规则绑定起来

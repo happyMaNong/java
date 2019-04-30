@@ -1,9 +1,11 @@
 package com.tlp.rabbitmq.dao;
 
-import com.tlp.rabbitmq.entity.User;
-import org.springframework.amqp.rabbit.annotation.RabbitHandler;
+import com.rabbitmq.client.Channel;
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
 
 /**
  * @className: MessageReceiver
@@ -15,14 +17,16 @@ import org.springframework.stereotype.Component;
 public class MessageReceiver {
 
     @RabbitListener(queues = "hello")
-    public void process(String hello) {
+    public void process(String hello,Channel channel,Message message) throws IOException {
         System.out.println("Receiver : "+hello);
+        //告诉服务器收到这条消息 已经被我消费了 可以在队列删掉；否则消息服务器以为这条消息没处理掉 后续还会在发（配置文件中修改了acknowledge-mode=manual ）
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
     }
 
-    @RabbitListener(queues = "hello")
-    public void processObject(User user) {
-        System.out.println("Receiver : "+user.toString());
-    }
+//    @RabbitListener(queues = "hello")
+//    public void processObject(User user) {
+//        System.out.println("Receiver : "+user.toString());
+//    }
 
     @RabbitListener(queues = "topic.message")
     public void processMessage(String hello) {
