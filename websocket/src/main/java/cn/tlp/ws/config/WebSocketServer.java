@@ -10,18 +10,12 @@ import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.concurrent.CopyOnWriteArraySet;
 /**
+ * WebSocket服务类,spring中默认是单例模式，一个类只有一个对象实例，但是@ServerEndpoint注解对每一个可以客户端的连接生成对象
  * @className: WebSocketServer
  * @description:
  * @author: tianlingpeng
  * @create: 2019-03-14 11:18
  */
-
-/**
- * WebSocket服务类
- *
- * @author :ZHANGPENGFEI
- * @create 2018-07-11 13:54
- **/
 @ServerEndpoint("/websocket/{sid}")
 @Component
 public class WebSocketServer {
@@ -100,7 +94,7 @@ public class WebSocketServer {
     /**
      * 群发自定义消息
      * */
-    public static void sendInfo(String message,@PathParam("sid") String sid) throws IOException {
+    public static void sendInfo(String message,@PathParam("sid") String sid){
         log.info("推送消息到窗口"+sid+"，推送内容:"+message);
         for (WebSocketServer item : webSocketSet) {
             try {
