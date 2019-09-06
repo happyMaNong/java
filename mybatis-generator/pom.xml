@@ -5,11 +5,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.df</groupId>
-	<artifactId>ch-06-02</artifactId>
+	<artifactId>mybatis-generator</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>ch-06-02</name>
+	<name>mybatis-generator</name>
 	<description>Demo project for Spring Boot</description>
 
 
