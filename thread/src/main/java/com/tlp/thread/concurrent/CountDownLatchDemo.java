@@ -10,6 +10,7 @@ import java.util.concurrent.CountDownLatch;
  */
 public class CountDownLatchDemo {
     public static void main(String[] args) {
+        //CountDownLatch是一个倒数计数器，在计数器不为0时，所有调用await的线程都会等待，当计数器降为0，线程才会继续执行，且计数器一旦变为0，就不能再重置了
         CountDownLatch latch = new CountDownLatch(3);
         Thread thread1 = new MyThread("A", latch);
         Thread thread2 = new MyThread("B", latch);
