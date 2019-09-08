@@ -1,5 +1,7 @@
 package com.tlp.thread.concurrent;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
@@ -9,6 +11,7 @@ import java.util.concurrent.CyclicBarrier;
  * @author: tianlingpeng
  * @create: 2019-09-06 09:01
  */
+@Slf4j
 public class CyclicBarrierDemo {
     public static void main(String[] args){
         CyclicBarrier cyclicBarrier = new CyclicBarrier(5, new Runnable() {
@@ -37,6 +40,7 @@ public class CyclicBarrierDemo {
                 Thread.sleep(1000);
                 System.out.println(Thread.currentThread().getName()+":准备完毕");
                 cyclicBarrier.await();
+                log.info("{}:准备完毕的后续动作",Thread.currentThread().getName());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (BrokenBarrierException e) {
