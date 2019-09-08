@@ -1,9 +1,12 @@
 package com.tlp.thread.volatiledemo;
 
+
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicInteger;
+
 
 /**
  * @className: TestVolatile
@@ -11,11 +14,14 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author: tianlingpeng
  * @create: 2019-09-05 14:15
  */
+@Slf4j
 public class TestVolatile {
+
+
     //不能保证线程安全，因为对int的操作不一定是原子性的
    public static volatile int count;
 
-    //线程安全的 CAS compareAndSwap
+    //线程安全的 CAS compareAndSet
     // public static AtomicInteger count = new AtomicInteger();
 
     public static void main(String[] args) {
@@ -31,6 +37,7 @@ public class TestVolatile {
             e.printStackTrace();
         }
         executors.shutdown();
+        log.info("总数：,{}",count);
         System.out.println(count);
     }
 
