@@ -7,8 +7,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
 public class ThreadApplicationTests {
 
 	@Test
@@ -30,6 +28,9 @@ public class ThreadApplicationTests {
 
         //最大内存
         long maxMemory = Runtime.getRuntime().maxMemory();
+
+        int i = Runtime.getRuntime().availableProcessors();
+        System.out.println("cpu核心数："+i);
 
         //你本地物理内存的1/16,误差在百分之十之内。
         System.out.println("最小内存"+totalMemory/(1024*1024)+"兆");
