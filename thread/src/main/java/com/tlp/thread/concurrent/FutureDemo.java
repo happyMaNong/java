@@ -32,6 +32,7 @@ public class FutureDemo {
         Future<Integer> future = executorService.submit(callable);
         try {
             System.out.println("主线程正在执行");
+            Thread.sleep(10000);
             int i = future.get();
             System.out.println("程序执行完毕，计算结果：" + i);
             executorService.shutdown();
