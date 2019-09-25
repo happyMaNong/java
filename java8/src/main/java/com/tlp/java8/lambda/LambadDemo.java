@@ -29,7 +29,7 @@ public class LambadDemo {
         System.out.println(list.toString());
 
          String sperator = ",";
-        list.forEach((String e) -> System.out.println(e+sperator));
+        list.forEach(( e) -> System.out.println(e+sperator));
 
     }
 }
