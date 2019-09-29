@@ -2,6 +2,7 @@ package com.tlp.java8.test;
 
 import com.tlp.java8.entity.AgeAndSex;
 import com.tlp.java8.entity.BmUser;
+import com.tlp.java8.entity.Test1;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -95,6 +96,22 @@ public class TestBasic {
             return t;
         }
     }
+@Test
+    public void test1() {
+        Test1 test1 = new Test1();
+        Test1 test11 = new Test1();
+        System.out.println(test1.str==test11.str);
+    }
 
+    @Test
+    public void test2() {
+        try {
+          //  Class.forName("com.tlp.java8.entity.Test1");
+            //你好
 
+            TestBasic.class.getClassLoader().loadClass("com.tlp.java8.entity.Test1");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }
