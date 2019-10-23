@@ -13,6 +13,7 @@ public class ThreadLocalDemo {
     public static void main(String[] args) {
         ThreadLocal<Integer> threadLocal = new ThreadLocal<>();
         threadLocal.set(3);
+        threadLocal.set(4);
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         Runnable task1 = new MyRefreshTask(1, threadLocal);
         Runnable task2 = new MyRefreshTask(2, threadLocal);

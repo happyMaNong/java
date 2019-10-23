@@ -19,5 +19,6 @@ public class BufferDemo {
         for (int i = 0; i < buf.limit(); i++) {
             System.out.println(buf.get());
         }
+        System.out.println(buf);
     }
 }

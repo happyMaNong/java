@@ -7,33 +7,45 @@ package com.tlp.thread.volatiledemo;
  * @create: 2019-09-19 13:45
  */
 public class VolatileDemo {
+     //static boolean flag =false;
+   volatile static boolean flag =false;
     public static void main(String[] args) throws InterruptedException {
         TaskRunnbale taskRunnbale = new TaskRunnbale();
         Thread thread = new Thread(taskRunnbale);
+
+        TaskRunnbaleB taskRunnbaleB = new TaskRunnbaleB();
+        Thread threadB = new Thread(taskRunnbaleB);
+
         thread.start();
-        Thread.sleep(5000);
-        taskRunnbale.flag =true;
+
+        Thread.sleep(1000);
+       // threadB.start();
+
+      flag =true;
     }
-}
-
-class TaskRunnbale implements Runnable {
-     boolean flag = false;
-
-    int i = 0;
-
-    @Override
-    public void run() {
-        while (!flag) {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+    static class TaskRunnbale implements Runnable {
+        @Override
+        public void run() {
+            while (true){
+                if (flag) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("正在执行代码");
+                }
             }
-            i++;
-            System.out.println(i);
-            if (flag)
-            return;
         }
-
     }
+
+
+    static class TaskRunnbaleB implements Runnable {
+        @Override
+        public void run() {
+            flag = true;
+            System.out.println(Thread.currentThread().getName() + " : flag is " + flag);
+        }
+    }
+
 }

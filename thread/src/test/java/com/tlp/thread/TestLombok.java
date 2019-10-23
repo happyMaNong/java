@@ -1,6 +1,7 @@
 package com.tlp.thread;
 
 import com.tlp.thread.entity.BmUser;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.Vector;
  * @author：tlp
  * @crateDate：2019/9/8 10:58
  */
+@Slf4j
 public class TestLombok {
 
     @Test
@@ -30,10 +32,14 @@ public class TestLombok {
         vector.add(2);
         vector.add(3);
 
+//        for (Integer integer : vector) {
+//            if (integer == 3) {
+//                vector.remove(integer);
+//            }
+//        }
+        vector.removeIf(integer1->integer1==1);
         for (Integer integer : vector) {
-            if (integer == 3) {
-                vector.remove(integer);
-            }
+            System.out.println(integer);
         }
     }
 
@@ -46,7 +52,7 @@ public class TestLombok {
         Iterator<Integer> iterator = vector.iterator();
         while (iterator.hasNext()) {
             Integer i = iterator.next();
-            if (i.equals(3)){
+            if (i.equals(1)){
                 vector.remove(i);
             }
         }
@@ -56,7 +62,6 @@ public class TestLombok {
 
     @Test
     public void testFor() {
-     // Vector<Integer> vector = new Vector<>();
         List<Integer> vector = new ArrayList<>();
         vector.add(1);
         vector.add(2);
@@ -67,4 +72,13 @@ public class TestLombok {
             }
         }
     }
+
+    @Test
+    public void testArrFor() {
+        String[] arr = {"1","2","3"};
+        for (String s : arr) {
+            log.info("{}",s);
+        }
+    }
+
 }

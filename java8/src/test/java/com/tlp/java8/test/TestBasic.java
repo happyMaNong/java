@@ -2,6 +2,7 @@ package com.tlp.java8.test;
 
 import com.tlp.java8.entity.AgeAndSex;
 import com.tlp.java8.entity.BmUser;
+import com.tlp.java8.entity.Test1;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;

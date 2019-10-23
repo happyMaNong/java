@@ -14,7 +14,7 @@ import java.util.concurrent.CyclicBarrier;
 @Slf4j
 public class CyclicBarrierDemo {
     public static void main(String[] args){
-        CyclicBarrier cyclicBarrier = new CyclicBarrier(5, new Runnable() {
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(10, new Runnable() {
             @Override
             public void run() {
                 System.out.println("所有运动员准备完毕");
@@ -22,7 +22,7 @@ public class CyclicBarrierDemo {
         });
         CyclicBarrierDemo cyclicBarrierDemo = new CyclicBarrierDemo();
         Runnable myRunnable =cyclicBarrierDemo.new MyRunnable(cyclicBarrier);
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             Thread thread = new Thread(myRunnable,"运动员["+i+"]");
             thread.start();
         }

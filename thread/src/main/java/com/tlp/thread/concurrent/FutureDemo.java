@@ -29,10 +29,11 @@ public class FutureDemo {
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
 
+        //Future对象主要是用来监控任务执行的状态的
         Future<Integer> future = executorService.submit(callable);
         try {
             System.out.println("主线程正在执行");
-            Thread.sleep(10000);
+            //Thread.sleep(10000);
             int i = future.get();
             System.out.println("程序执行完毕，计算结果：" + i);
             executorService.shutdown();
