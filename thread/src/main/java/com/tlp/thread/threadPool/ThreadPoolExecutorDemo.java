@@ -16,19 +16,19 @@ public class ThreadPoolExecutorDemo {
         //创建一个缓冲池，缓冲池容量大小为Integer.MAX_VALUE
         ExecutorService executorService = Executors.newCachedThreadPool();
         //创建固定容量大小的缓冲池
-        ExecutorService executorService1 = Executors.newFixedThreadPool(5);
+        ExecutorService executorService1 = Executors.newFixedThreadPool(10000);
         //创建容量为1的缓冲池
         ExecutorService executorService2 = Executors.newSingleThreadExecutor();
         ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
 
         ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 10, 200, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<Runnable>(6));
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < 10000; i++) {
             MyTask myTask = new MyTask(i);
-            executor.execute(myTask);
+            executorService1.execute(myTask);
             System.out.println("线程池中线程的数目：" + executor.getPoolSize()
                     + ",队列中等待执行的任务数目：" + executor.getQueue().size() + ",已执行完成的任务数目：" + executor.getCompletedTaskCount());
         }
-        executor.shutdown();
+        executorService1.shutdown();
 
         scheduledExecutorService.schedule(new Runnable() {
             @Override

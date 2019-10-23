@@ -2,7 +2,6 @@ package com.tlp.java8.test;
 
 import com.tlp.java8.entity.AgeAndSex;
 import com.tlp.java8.entity.BmUser;
-import com.tlp.java8.entity.Test1;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -19,15 +18,16 @@ import java.util.List;
 public class TestBasic {
     @Test
     public void testStringPool() {
-        String str1 = "abc";
-        System.out.println(str1.hashCode());
-        String str2 = "abc";
-        System.out.println(str1 == str2);
 
         String str3 = new String("abc");
-        System.out.println(str3.hashCode());
-        System.out.println(str1 == str3);
-        System.out.println(str1.equals(str3));
+
+        String str1 = str3.intern();
+        System.out.println(str1==str3);
+
+        String str2 = new String("ab")+new String("cd");
+        String str4 = str2.intern();
+        System.out.println(str2 ==str4);
+
     }
 
     @Test
@@ -114,4 +114,24 @@ public class TestBasic {
             e.printStackTrace();
         }
     }
+    @Test
+    public void test3(){
+        out:
+        for (int i = 0; i <10 ; i++) {
+            for (int j = 0; j < 10; j++) {
+               if (j==2){
+                   System.out.println(j);
+                   break out;
+               }
+            }
+            System.out.println(i);
+        }
+    }
+
+    @Test
+    public void test4(){
+        System.out.println(Runtime.getRuntime().availableProcessors());
+    }
+
+
 }

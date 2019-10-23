@@ -22,13 +22,13 @@ public class RabbitConfig {
 
     //Direct 类型的Exchage，根据routingkey绑定队列
     @Bean
-    public Queue queue() {
-        return new Queue("hello");
+    DirectExchange directExchange() {
+        return new DirectExchange("directExchange");
     }
 
     @Bean
-    DirectExchange directExchange() {
-        return new DirectExchange("directExchange");
+    public Queue queue() {
+        return new Queue("hello");
     }
     @Bean
     Binding bindingDirectMessage(Queue queue, DirectExchange directExchange) {
@@ -37,7 +37,7 @@ public class RabbitConfig {
 
 
 
-    @Bean
+   /* @Bean
     public Queue queueMessage() {
         return new Queue("topic.message");
     }
@@ -89,5 +89,5 @@ public class RabbitConfig {
     Binding bindingQueueB(Queue queueB, FanoutExchange fanoutExchange) {
         return BindingBuilder.bind(queueB).to(fanoutExchange);
     }
-
+*/
 }

@@ -18,4 +18,7 @@ public class TestConstantPool {
         String str3 = str2.intern();
         System.out.println(str2==str3);
     }
+    public static String getName(){
+        return "111111";
+    }
 }
