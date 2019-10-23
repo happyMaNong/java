@@ -14,4 +14,7 @@ public class TestConstantPool {
 
         System.out.println(str3 == str4);
     }
+    public static String getName(){
+        return "111111";
+    }
 }

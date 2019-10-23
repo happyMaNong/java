@@ -5,6 +5,11 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.List;
 
 public class ThreadApplicationTests {
@@ -38,6 +43,25 @@ public class ThreadApplicationTests {
         //你本地物理内存的四分之一，误差在百分之十之内。
         System.out.println("最大内存"+maxMemory/(1024*1024)+"兆");
 
+    }
+
+
+    @Test
+    public void test3() throws Exception {
+        File file = new File("F:\\下载文件\\河南理工大学最新馆藏\\河南理工大学最新馆藏\\MARC数据-20191008");
+        File[] files = file.listFiles();
+        File fileName = new File("F:\\下载文件\\河南理工大学最新馆藏\\完整数据.iso");
+        BufferedOutputStream bos =new BufferedOutputStream(new FileOutputStream(fileName,true));
+        for (File file1 : files) {
+            FileInputStream fileInputStream = new FileInputStream(file1);
+            BufferedInputStream bis = new BufferedInputStream(fileInputStream);
+            byte[] buf = new byte[1024*1024];
+            while ((bis.read(buf))!=-1){
+                bos.write(buf,0,buf.length);
+            }
+            bis.close();
+        }
+        bos.close();
     }
 
 }

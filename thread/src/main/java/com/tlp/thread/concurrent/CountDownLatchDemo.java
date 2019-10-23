@@ -27,6 +27,7 @@ public class CountDownLatchDemo {
         Thread thread2 = new MyThread("B");
         Thread thread3 = new MyThread("C");
 
+
 //        Thread thread1 = countDownLatchDemo.getMyThread("A");
 //        Thread thread2 = countDownLatchDemo.getMyThread("B");
 //        Thread thread3 = countDownLatchDemo.getMyThread("C");
