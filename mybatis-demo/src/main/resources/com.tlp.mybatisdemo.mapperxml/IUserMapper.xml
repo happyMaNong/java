@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tlp.mybatisdemo.mapper.IUserMapper">
+
+    <sql id="base_user_colum">
+        id, name, address, updateTime
+    </sql>
+
+    <select id="findAllUserList" resultType="com.tlp.mybatisdemo.model.PlayerUser">
+        select
+        <include refid="base_user_colum"/>
+        from test_user
+        <where>
+            <if test="user.id!=null">
+                and id =#{user.id}
+            </if>
+            <choose>
+                <when test="user.name!=null">
+                    and name =#{user.name}
+                </when>
+                <otherwise>
+                    and address=#{user.address}
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <!--  批量新增-->
+    <insert id="batchAddUser" useGeneratedKeys="true" keyProperty="id">
+        insert into test_user (name, address, updateTime, salary) VALUES
+        <foreach collection="list" item="user" separator=",">
+            (#{user.name},#{user.address},now(),#{user.salary})
+        </foreach>
+    </insert>
+    <!-- 第一种方式 ，循环着组装sql   &allowMultiQueries=true-->
+    <!-- 批量更新第二种方法，通过 case when语句变相的进行批量更新 -->
+    <update id="batchUpdateUser">
+        <foreach collection="list" item="user" separator=";">
+            update test_user set name=#{user.name} ,address= #{user.address},updateTime=now(),salary =#{user.salary} where id=#{user.id}
+        </foreach>
+    </update>
+
+
+    <resultMap id="gradeInfo" type="com.tlp.mybatisdemo.model.GradeModel">
+        <id column="id" property="id"/>
+        <result column="grade_name" property="gradeName"/>
+        <result column="student_num" property="studentNum"/>
+        <result column="address" property="address"/>
+        <result column="teachers" property="teachers"/>
+        <collection property="classList" javaType="List" ofType="com.tlp.mybatisdemo.model.ClassModel">
+            <id column="cid" property="id"/>
+            <result column="grade_id" property="gradeId"/>
+            <result column="class_name" property="className"/>
+            <result column="c_student_num" property="studentNum"/>
+            <result column="c_teacher" property="teachers"/>
+        </collection>
+    </resultMap>
+
+    <!--一对多关联查询-->
+    <select id="findGradeInfo" resultMap="gradeInfo">
+        select t1.id,
+               t1.grade_name,
+               t1.address,
+               t1.teachers,
+               t2.id          as cid,
+               t2.grade_id,
+               t2.class_name,
+               t2.student_num as c_student_num,
+               t2.teachers    as c_teacher
+        from grade t1
+                 left join class t2 on t1.id = t2.grade_id and t2.teachers = 'xx3'
+
+
+    </select>
+
+
+</mapper>
