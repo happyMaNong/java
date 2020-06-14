@@ -3,6 +3,7 @@ package com.tlp.exception.handler;
 import com.tlp.exception.entity.MyException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -46,4 +47,15 @@ public class GolabExceptionHandler {
         //正常开发中，可创建一个统一响应实体，如CommonResp
         return result;
     }
+
+
+    @ExceptionHandler({RuntimeException.class})
+    public Map<String,Object> RunTimeExceptionHandler(RuntimeException e){
+        Map<String,Object> result = new HashMap<String,Object>();
+        result.put("respCode", "102");
+        result.put("respMsg", e.getMessage());
+        //正常开发中，可创建一个统一响应实体，如CommonResp
+        return result;
+    }
+
 }
