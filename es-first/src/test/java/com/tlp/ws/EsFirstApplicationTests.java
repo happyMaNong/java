@@ -4,8 +4,7 @@ import com.tlp.ws.dao.BlogRepository;
 import com.tlp.ws.dao.StudentRepository;
 import com.tlp.ws.entity.Blog;
 import com.tlp.ws.entity.Student;
-import org.elasticsearch.index.query.MatchAllQueryBuilder;
-import org.elasticsearch.index.query.Operator;
+import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.sort.SortBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
@@ -17,8 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-import org.springframework.data.elasticsearch.core.query.SearchQuery;
+import org.springframework.data.elasticsearch.core.query.*;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
@@ -43,7 +41,7 @@ public class EsFirstApplicationTests {
     }
 
     @Resource
-    private ElasticsearchTemplate elasticsearchTemplate;
+    private  ElasticsearchTemplate elasticsearchTemplate;
 
     @Autowired
     private BlogRepository blogRepository;
@@ -203,6 +201,35 @@ public class EsFirstApplicationTests {
     @Test
     public void delete() {
         studentRepository.deleteById(2019042204L);
+    }
+
+    @Test
+    public void search() {
+        MatchAllQueryBuilder matchAllQueryBuilder = new MatchAllQueryBuilder();
+        SearchQuery searchQuery = new NativeSearchQuery(matchAllQueryBuilder);
+
+
+        QueryStringQueryBuilder qstr = QueryBuilders.queryStringQuery("美国 旧金山");
+       // qstr.defaultOperator(Operator.AND);
+        SearchQuery searchQuery1 = new NativeSearchQuery(qstr);
+
+
+        MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery("age", 30);
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+        boolQueryBuilder.mustNot(qstr);
+        boolQueryBuilder.must(matchQueryBuilder);
+        SearchQuery searchQuery2 = new NativeSearchQuery(boolQueryBuilder);
+
+        query(searchQuery1);
+
+
+    }
+
+    public  void query(SearchQuery searchQuery) {
+        List<Student> students = elasticsearchTemplate.queryForList(searchQuery, Student.class);
+        students.forEach(student -> {
+            System.out.println(student.toString());
+        });
     }
 }
 

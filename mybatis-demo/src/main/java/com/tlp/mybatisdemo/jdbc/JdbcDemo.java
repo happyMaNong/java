@@ -19,7 +19,7 @@ public class JdbcDemo {
         Connection connection = DriverManager.getConnection(url, username, password);
 
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("select * from player");
+        ResultSet resultSet = statement.executeQuery("select * from test_user");
 
         while (resultSet.next()) {
             int id = resultSet.getInt(1);
